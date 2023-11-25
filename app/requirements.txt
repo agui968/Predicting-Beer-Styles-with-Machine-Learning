@@ -1,0 +1,22 @@
+# Requirements for running the ML models and the Jupyter Notebooks
+python==3.11
+jupyter==1.0.0
+matplotlib==3.3.4
+numpy==1.22.0
+pandas==1.2.2
+seaborn 
+streamlit
+
+##### Machine Learning packages
+scikit-learn==0.24.1
+
+# Optional: the XGBoost library is only used in chapter 7
+xgboost==1.3.3
+
+
+# Optional:
+warnings
+os
+pickle
+pd.set_option('display.max_columns', 40)
+pd.set_option('display.max_colwidth', 300)
