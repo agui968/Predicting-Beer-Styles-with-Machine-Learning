@@ -1,16 +1,23 @@
 import pandas as pd
+from time import sleep
+
+print('Reading the dataset...')
 
 #Process detailed in 02limpieza.ipynb
-beer1=pd.read_csv('../data/raw/recipeData.csv')
+beer1 = pd.read_csv('..\\data\\raw\\recipeData.csv')
+sleep(0.75)
+print('\n')
 
-#DELETING USELESS COLUMNS
+print('Deleting useless columns...')
 beer1=beer1.drop(columns=(['BeerID','Size(L)', 'URL', 'OG', 'BoilSize', 'BoilGravity','Efficiency','MashThickness',
                            'PitchRate','PrimaryTemp','PrimingAmount','UserId','FG','SugarScale','PrimingMethod','BoilTime']))
-
-#Removing null style beers from the df
+sleep(0.75)
+print('\n')
+print('Removing null style beers from the dataset...')
 beer1.dropna(subset=['Style','Name'],axis=0,inplace=True)
-
-#Mapping styles to sort them out
+sleep(0.75)
+print('\n')
+print('Mapping styles to sort them out...')
 longstyle_map={'Blonde Ale':'Pale Lager/Blonde Ale', 'British Golden Ale':'Pale Lager/Blonde Ale','Cream Ale':'Pale Lager/Blonde Ale','Holiday/Winter Special Spiced Beer':'Other','American IPA':'Pale Ale', 'Belgian Blond Ale':'Pale Lager/Blonde Ale',
                'American Pale Ale':'Pale Ale','Imperial IPA':'Pale Ale','Robust Porter':'Stout/Porter','Bohemian Pilsener':'Pale Lager/Blonde Ale','Saison':'Pale Ale',
                'Northern English Brown':'Brown Ale','English IPA':'Pale Ale','Traditional Bock':'Other','Premium American Lager':'Pale Lager/Blonde Ale',
@@ -48,12 +55,17 @@ longstyle_map={'Blonde Ale':'Pale Lager/Blonde Ale', 'British Golden Ale':'Pale 
                'Autumn Seasonal Beer':'Other','International Dark Lager':'Other','Roggenbier':'Other','Dunkles Bock':'Other','German Leichtbier':'Pale Lager/Blonde Ale',
                'Scottish Light':'Other','Pre-Prohibition Porter':'Other','Specialty Wood-Aged Beer':'Other'
 
-} #remove Other;
+}
 beer1['Simple_style']=beer1['Style'].map(longstyle_map)
-#Remove 'Other' style
+sleep(0.75)
+print('\n')
+print('Remove \'Other\' style')
 beer1=beer1.drop(beer1[beer1['Simple_style']=='Other'].index)
+beer1.drop(columns=('StyleID'),inplace=True)
+sleep(0.75)
+print('\n')
 
-#Create new column with new style codes (ordered by color)
+print('Creating a new column with new style codes (ordered by color)...')
 style_map_color = {
     "Wheat": 0,
     "Pale Lager/Blonde Ale": 1,
@@ -63,25 +75,15 @@ style_map_color = {
     "Stout/Porter":5
 }
 beer1['Style_color'] = beer1['Simple_style'].map(style_map_color)
-beer1.head()
-
-# style_map_ibu = { #ORDERED BY IBU
-#     "Wheat": 0,
-#     "Pale Lager/Blonde Ale": 1,
-#     "Brown Ale": 2,
-#     "Strong Ale": 3,
-#     "Stout/Porter":4,
-#     "Pale Ale":5
-# }
-# beer1['Style_ibu'] = beer1['Simple_style'].map(style_map_ibu)
-#Save the new csv
-# beer1.to_csv('..\\data\\processed\\clean_styles_mapped.csv')
+sleep(0.75)
+print('\n')
 
 #Process detailed in 03limpieza_EDA.ipynb
-beer=pd.read_csv('../data/processed/clean_styles_mapped.csv',index_col=0)
+beer=beer1
 
-# Remove duplicates and correct outliers / wrong values
+print('Removing duplicates and correcting outliers / wrong values...')
 beer=beer.drop_duplicates(subset='Name')
+beer = beer[beer['IBU'] != 3409.3]
 beer.loc[(beer['Simple_style'] == 'Pale Lager/Blonde Ale') & (beer['Color'] > 6), 'Color'] = 6
 beer.loc[(beer['Simple_style'] == 'Pale Lager/Blonde Ale') & (beer['IBU'] > 28), 'IBU'] = 28
 
@@ -105,7 +107,15 @@ beer.loc[(beer['Simple_style'] == 'Strong Ale') & (beer['IBU'] > 100), 'IBU'] = 
 beer.loc[(beer['Simple_style'] == 'Wheat') & (beer['IBU'] > 30), 'IBU'] = 30
 beer.loc[(beer['Simple_style'] == 'Pale Lager/Blonde Ale') & (beer['IBU'] < 8), 'IBU'] = 8
 beer.loc[(beer['Simple_style'] == 'Pale Ale') & (beer['IBU'] < 30), 'IBU'] = 30
-
+sleep(0.75)
+print('\n')
+print('Reseting the index with the actual number of registers...')
 beer.reset_index(drop=True, inplace=True)
-#Save the new csv
-# beer.to_csv('../data/processed/clean_limited.csv')
+sleep(0.5)
+print('\n')
+print('Saving the new csv file...')
+beer.to_csv('..\\data\\processed\\final_dataset.csv')
+sleep(0.75)
+print('\n')
+print('Done')
+#You can now head on to 'training.py'
