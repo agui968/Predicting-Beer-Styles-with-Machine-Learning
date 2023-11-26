@@ -4,14 +4,14 @@ This repository hosts several machine learning models designed to classify beer 
 
 ### Key Features:
 
-+ Machine learning model for beer style classification
++ Machine learning models for beer style classification
 + Utilizes ABV, IBU, and color (SRM) as predictive features
-+ Dataset sourced from diverse beer varieties
++ Data and details sourced from  [Brewersfriend.com](https://www.brewersfriend.com/beer-charts/).
   
 ### Structure of the repository:
     (Under construction)
 
-### Streamlit deployment of the model
+### Deployment of the model on Streamlit
     (Under construction)
     
 Cheers to Data!
