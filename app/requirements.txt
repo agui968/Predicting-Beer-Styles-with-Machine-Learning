@@ -1,22 +1,18 @@
-# Requirements for running the ML models and the Jupyter Notebooks
-python==3.11
+# Requirements for running the ML models, the Jupyter Notebooks, and the Streamlit app
 jupyter==1.0.0
 matplotlib==3.3.4
 numpy==1.22.0
 pandas==1.2.2
-seaborn 
-streamlit
+pickleshare==0.7.5
+python==3.10.9
+seaborn==0.12.2
+streamlit==1.27.2
+PyYAML==6.0.1
 
 ##### Machine Learning packages
 scikit-learn==1.3.2
-# Optional: the XGBoost library is only used in chapter 7
-xgboost==1.3.3
 
-<
 # Optional:
-warnings
 os
-pickle
-pd.set_option('display.max_columns', 40)
-pd.set_option('display.max_colwidth', 300)
-ydata_profiling (ProfileReport)
+warnings
+ydata_profiling==4.6.1
