@@ -1,4 +1,5 @@
 # Project Memo
+![img](../docs/charts/types-pic.avif)
 Inicialmente se disponía de un dataset con las siguientes columnas:
 ```Python
 ['BeerID', 'Name', 'URL', 'Style', 'StyleID', 'Size(L)', 'OG', 'FG',
@@ -42,7 +43,7 @@ Una vez determinadas las variables con las que trabajar, se pasa a la limpieza d
 
 + Eliminación de cervezas duplicadas;
 + Visualización de la distribución de las variables por estilos (``` groupby() ```)
-![img](../docs/ejemplo_color_nolim.png)
+![img](../docs/charts/ejemplo_color_nolim.png)
 -----------------------------------
 
 ### Transformación de variables y visualizaciones
@@ -52,7 +53,7 @@ Una vez determinadas las variables con las que trabajar, se pasa a la limpieza d
 (Detalles sobre este procedimiento en el archivo [03limpiezaEDA.ipynb]('../notebooks/03limpiezaEDA.ipynb'))
 
 + Una vez corregidos los valores atípicos, se puede visualizar con más claridad la distribución de los valores:
-![img](../docs/boxplot_srm_lim.png)
+![img](../docs/charts/boxplot_srm_lim.png)
 
 ### Entrenamiento de modelos
 
@@ -62,7 +63,7 @@ Una vez determinadas las variables con las que trabajar, se pasa a la limpieza d
 + Tras dividir el dataset en train y test, definir las variables predictoras (```X_train=train[['ABV','IBU','Color']]```) y la variable que predecir (```y_train=train['Style_color']```), es importante equilibrar las clases, dado que hay muchas más cervezas de unos tipos que de otros. Para ello, se utiliza un **RandomUnderSampler**.
 
 + Después, realicé una primera prueba con una regresión logística sencilla (tanto escalando los datos como sin escalarlos), que me dio unas métricas aceptables (```f1_score 0.8151642512466675``` sin escalar).
-![img](../docs/lr1_confusionmatrix.png)
+![img](../docs/charts/lr1_confusionmatrix.png)
 
 + Repetí este proceso utilizando como target la columna que ordenaba los estilos por su grado de amargor (IBU), pero los resultados fueron muy similares, por lo que de aquí en adelante se utilizó siempre la de **Style_color**.
 
@@ -72,22 +73,22 @@ Una vez determinadas las variables con las que trabajar, se pasa a la limpieza d
 + En este penúltimo *notebook* probé con dos pipelines para determinar el mejor modelo de clasificación y sus respectivos parámetros mediante un Grid Search. Primero, escalando los datos y, después, sin escalarlos, que resultó ser la mejor opción.
 
 De los modelos elegidos, el ganador resultó ser el Gradient Boosting Classifier, con unas métricas bastante buenas (```f_1 score 0.91```)
-![img](../docs/final_cm.png)
+![img](../docs/charts/final_cm.png)
 Si bien le sigue costando un poco distinguir entre las cervezas rubias, es un modelo bastante bueno para todos los demás estilos de cerveza.
 
 #### Clustering y KMeans
 
 + También probé a hacer un modelo de aprendizaje no supervisado (*clustering*). Según indicaban las métricas, probé a dividir el dataset en 2 y en 5 clústeres, pero los resultados no fueron demasiado buenos.
-![img](../docs/5clusters.png)
+![img](../docs/charts/5clusters.png)
 
 #### Otras pruebas y modelos
 (Detalles sobre este procedimiento en el archivo [06Entrenamiento_evaluacion_GS2pruebas.ipynb]('../notebooks/06Entrenamiento_evaluacion_GS2pruebas.ipynb'))
 
 + Por último, decidí hacer otros dos pipelines con Grid Search:
     - Uno con los modelos que quedaban por probar (no mejoró los resultados)
-        ![img](../docs/adaboost_cm.png)
+        ![img](../docs/charts/adaboost_cm.png)
 
     - Otro aumentando los parámetros del Gradient Boosting ganador, que tampoco mejoró las métricas
-        ![img](../docs/lastgbc_cm.png)
+        ![img](../docs/charts/lastgbc_cm.png)
 
 En definitiva, el mejor modelo fue el Gradient Boosting inicial, sin escalar los datos. Se pueden consultar los parámetros utilizados [aquí](../models/final_model_config.yaml).
