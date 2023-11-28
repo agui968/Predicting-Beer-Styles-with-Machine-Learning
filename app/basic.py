@@ -41,13 +41,13 @@ import streamlit.components.v1 as c
 #     st.write('It didn\'t work with forward slashes.')
 
 
-with open('../models/final_model_gbc.pkl', 'rb') as input:
+with open(r'../models/final_model_gbc.pkl', 'rb') as input:
     gb_model = pickle.load(input) 
 
-with open('../models/trained_model_lr1.pkl', 'rb') as input:
+with open(r'../models/trained_model_lr1.pkl', 'rb') as input:
     lr_model = pickle.load(input)
 
-with open('../models/trained_model_adaboost_dtc.pkl', 'rb') as input:
+with open(r'../models/trained_model_adaboost_dtc.pkl', 'rb') as input:
     abdt_model = pickle.load(input)
 
 def classify(pred):
