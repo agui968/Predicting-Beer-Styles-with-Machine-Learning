@@ -2,7 +2,6 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
-from sklearn.metrics.pairwise import euclidean_distances
 from PIL import Image
 import streamlit.components.v1 as c
 df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
@@ -15,7 +14,7 @@ with open('../models/trained_model_lr1.pkl', 'rb') as input:
 with open('../models/trained_model_adaboost_dtc.pkl', 'rb') as input:
     abdt_model = pickle.load(input)
 
-df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
+# df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
 def classify(pred):
         """Function to classify beer styles according to their qualities"""
         if pred==0:
@@ -44,13 +43,15 @@ if select=='Home':
     
 elif select=='Try the model yourself':
     st.title('Make your own predictions 🍺')
-    # df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
+    
     img3=Image.open('resources\\bender.webp')
     st.image(img3)
     st.write('In this section you will introduce the parameters of your beer and let machine learning do the magic and predict its style.\nTo make it easier for you, below you can find some guidance on the usual values of each variable:')
+    with st.expander('Take a sneak peek at the beer data 🔍'):
+        st.write(df.tail())
     st.markdown("- ***Alcohol by volume***:\n\n\tUsually, pale ale and stout styles have higher alcohol content, but there's no general rule for this parameter. Go nuts!")
-    st.markdown("- ***International bitterness units***:\n\n\tMild - up to 20 IBU;\n\n\tSlightly bitter - 20 to 30 IBU;\n\n\tQuite bitter - 30 to 60 IBU;\n\n\tAs bitter as a rainy Monday - higher than 60 IBU.")
-    st.markdown("- ***Color (SRM) scale***: \n\n\tBlonde - 1 to 15 SRM;\n\n\tAmber - 12 to 22 SRM;\n\n\tBrown - 23 to 35 SRM;\n\n\tAfter that... sky is the limit (actually, 50 SRM is the limit).\n\n\tFind the color of your favorite beer in the image below:")
+    st.markdown("- ***International bitterness units***:\n\n\t - Mild - up to 20 IBU;\n\n\t - Slightly bitter - 20 to 30 IBU;\n\n\t - Quite bitter - 30 to 60 IBU;\n\n\t - As bitter as a rainy Monday - higher than 60 IBU.")
+    st.markdown("- ***Color (SRM) scale***: \n\n\t - Blonde - 1 to 15 SRM;\n\n\t - Amber - 12 to 22 SRM;\n\n\t - Brown - 23 to 35 SRM;\n\n\t - After that... sky is the limit (actually, 50 SRM is the limit).\n\n\tFind the color of your favorite beer in the image below:")
     col1, col2, col3 = st.columns(3)
     with col1:
         st.write(' ')
@@ -60,8 +61,7 @@ elif select=='Try the model yourself':
         st.image(Image.open('resources\\SRM_colorscale.webp'),width=450)
     with col3:
         st.write(' ')
-
-#classify() used to go here
+    
     def user_input():
         """Function to collect the parameters chosen by the user in order to make predictions with the ML model"""
         abv=st.sidebar.slider('Alcohol by volume',0,50,5)
@@ -78,7 +78,7 @@ elif select=='Try the model yourself':
     model_selection=st.sidebar.selectbox('Choose a model for your predictions:',model_options)
     st.subheader('Introduce the parameters of the beer:')
     st.write(model_selection)
-    if st.button('RUN'):
+    if st.sidebar.button('RUN'):
         if model_selection=='Gradient Boosting (Recommended)':
             st.success(classify(gb_model.predict(df_user)))
         elif model_selection=='Logistic Regression':
@@ -90,13 +90,10 @@ elif select=='Try the model yourself':
     st.write('CHEERS TO DATA!🍻')
 
 elif select=='Discover a new beer':
-    img2=Image.open('resources\\white_perspective.jpg')
-    st.image(img2)
-    df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
+    img2=Image.open('resources\\bar_taps.jpg')
+    st.image(img2,use_column_width='always')
     st.header('Discover your new favorite \'hop juice\'!')
     st.markdown('This one is easy: tell us what you like and we\'ll take care of the rest. Ready to dive into a whole new realm of vibrant and lively craft beers?\n\n In case you don\'t know where to start, you will find a quick guide to choose your preferences on the "**Try the model yourself**" section.')
-    with st.expander('Framework'):
-        df=pd.read_csv('resources\\clean_limited.csv',index_col=0).head()
     def user_preferences():
         global abv_range,ibu_range,color_range# ,choice,preferences,distance,closest_beers
         abv_range,ibu_range,color_range= 55,20,6
@@ -131,19 +128,19 @@ elif select=='Discover a new beer':
             color_range=np.random.randint(23,35)
         else:
             color_range=np.random.randint(35,51)
-        choice=[abv_range,ibu_range,color_range]
+        choice=[[abv_range,ibu_range,color_range]]
         # preferences= pd.DataFrame(columns=['ABV','IBU','Color'],data=choice,index=[0])
 
         distance= np.linalg.norm(df[['ABV', 'IBU', 'Color']].values - choice, axis=1)
         #checks distance to other beer values in relation to the user choices
-        closest_beers = distance.argsort(axis=0)[0] #sorts the distances to get the closest ones (5 closest values)
+        closest_beers = distance.argsort(axis=0)[np.random.randint(0,6)] #sorts the distances to get the closest ones (5 closest values)
         
         # preferences, closest_beers,choice
     
         if st.button('Discover my new favorite \'hop juice\'!'):
             recommend_code = gb_model.predict([[abv_range, ibu_range, color_range]])
-            print('If you like that kind of beer, you\'re into ', classify(recommend_code))
-            print(f'So you should definitely try {df["Name"].iloc[closest_beers]}')
+            st.subheader('Ready for a beer adventure?')
+            st.write(f'💡 Based on your preferences, you\'re in the mood for {classify(recommend_code)}. Why not indulge in the delightful taste of "{df["Name"].iloc[closest_beers]}", one of the finest {df["Style"].iloc[closest_beers]}? 🍻')
     user_preferences()
 
 
