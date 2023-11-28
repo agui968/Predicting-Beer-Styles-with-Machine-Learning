@@ -41,7 +41,7 @@ import streamlit.components.v1 as c
 #     st.write('It didn\'t work with forward slashes.')
 
 
-df=pd.read_csv(r'../data/processed/final_dataset.csv')
+df=pd.read_csv(r'./resources/clean_limited.csv')
 with open('../models/final_model_gbc.pkl', 'rb') as input:
     gb_model = pickle.load(input) 
 
@@ -176,7 +176,7 @@ elif select=='Discover a new beer':
         if st.button('Discover my new favorite \'hop juice\'!'):
             recommend_code = gb_model.predict([[abv_range, ibu_range, color_range]])
             st.subheader('Ready for a beer adventure?')
-            st.markdown(f'💡 Based on your preferences, you\'re in the mood for **{classify(recommend_code)}**. Why not indulge in the delightful taste of "**{df["Name"].iloc[closest_beers]}**", one of the finest {df["Style"].iloc[closest_beers]}? 🍻')
+            st.markdown(f'💡 Based on your preferences, you\'re in the mood for **{classify(recommend_code)}**. Indulge in the delightful taste of "**{df["Name"].iloc[closest_beers]}**", one of the finest {df["Style"].iloc[closest_beers]}! 🍻')
     user_preferences()
 
 
