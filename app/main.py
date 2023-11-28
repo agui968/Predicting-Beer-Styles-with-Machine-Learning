@@ -3,8 +3,12 @@ import pickle
 import numpy as np
 import pandas as pd
 from PIL import Image
+import os
 import streamlit.components.v1 as c
-df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
+
+file_path = os.path.abspath('resources/clean_limited.csv')
+df = pd.read_csv(file_path, index_col=0)
+
 with open('../models/final_model_gbc.pkl', 'rb') as input:
     gb_model = pickle.load(input) 
 
