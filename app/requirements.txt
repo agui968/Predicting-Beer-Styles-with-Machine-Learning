@@ -3,11 +3,10 @@ jupyter
 matplotlib
 numpy
 pandas
-pickleshar
-python
+pickleshare
+python>=3.9,<4.0
 seaborn
-streamlit
-PyYAML
+streamlit==1.27.2
 
 ##### Machine Learning packages
 scikit-learn
