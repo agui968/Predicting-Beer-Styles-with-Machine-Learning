@@ -4,7 +4,6 @@ matplotlib
 numpy
 pandas
 pickleshare
-python>=3.9,<4.0
 seaborn
 streamlit==1.27.2
 
