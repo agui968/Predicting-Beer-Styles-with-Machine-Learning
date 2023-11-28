@@ -5,10 +5,10 @@ import pandas as pd
 from PIL import Image
 # import os
 import streamlit.components.v1 as c
-# import os
+import os
 # from pathlib import Path 
-# # file_path = os.path.abspath('resources/clean_limited.csv')
-# # df = pd.read_csv(file_path, index_col=0)
+file_path = os.path.abspath(r'./Include/clean_limited.csv')
+df = pd.read_csv(file_path, index_col=0)
 
 # csv_path = Path('resources') / 'clean_limited.csv'
 # gb_model_path = Path('models') / 'final_model_gbc.pkl'
@@ -41,7 +41,7 @@ import streamlit.components.v1 as c
 #     st.write('It didn\'t work with forward slashes.')
 
 
-df=pd.read_csv(r'./resources/clean_limited.csv')
+# df=pd.read_csv(r'./resources/clean_limited.csv')
 with open('../models/final_model_gbc.pkl', 'rb') as input:
     gb_model = pickle.load(input) 
 
