@@ -1,12 +1,53 @@
 ## Welcome to the Beer Style Prediction Project! 🍻
+![img](./docs/aibeer.jpg)
 
-This repository hosts several machine learning models designed to classify beer styles based on key features like Alcohol By Volume (ABV), International Bitterness Units (IBU), and color (SRM). Our goal is to provide a robust and accurate tool for predicting beer styles, assisting brewers and enthusiasts alike in understanding and categorizing different brews.
+### Project Overview
 
-### Key Features:
+This project focuses on classifying beer styles using machine learning techniques. The dataset, obtained from [Brewersfriend.com](https://www.brewersfriend.com), includes various features related to beer recipes. The goal is to build a model that can accurately predict the style of beer based on key attributes such as Alcohol By Volume (ABV), International Bitterness Units (IBU), and Color (SRM), assisting brewers and enthusiasts alike in understanding and categorizing different brews.
 
-+ Machine learning models for beer style classification
-+ Utilizes ABV, IBU, and color (SRM) as predictive features
-+ Data and details sourced from  [Brewersfriend.com](https://www.brewersfriend.com/beer-charts/).
+### Data Cleaning
+The dataset initially contained several columns, but after a thorough analysis using heatmaps with Pearson, Kendall, and Spearman coefficients, irrelevant columns were discarded. The key variables for the model were identified as ABV, IBU, and Color. The beer styles were mapped into six main categories, and duplicate beers were removed to ensure a clean dataset.
+
++ Comprehensive mapping of beer styles.
++ Removal of duplicate beers.
++ Visualization of variable distributions by beer styles.
+
+### Data Transformation and Visualizations
+Outliers were removed, and incorrect values were corrected, leading to clearer visualizations of variable distributions. This step involved setting limits for the Color variable based on the Standard Reference Method (SRM) scale.
+
++ Removal of outliers.
++ Correction of incorrect values.
++ Visualizations of variable distributions.
+### Model Training
+
+#### Logistic Regression
+The initial model training involved logistic regression with a focus on balancing classes using RandomUnderSampler. Two scenarios were tested: scaling the data and not scaling it. The chosen target variable for classification was the style code.
+
++ Logistic regression with class balancing.
++ Testing scenarios with and without data scaling.
+
+#### Grid Searches, Pipelines, and Final Model
+Several machine learning models were considered, and two pipelines with Grid Search were implemented to determine the best classification model and parameters. The winning model was the Gradient Boosting Classifier, which showed excellent metrics, especially in terms of F1 score.
+
++ Implementation of Grid Searches and Pipelines.
++ Selection of the Gradient Boosting Classifier as the final model.
+
+#### Clustering and KMeans
+
+An attempt was made to create an unsupervised learning model using clustering (KMeans). However, the results were not satisfactory, and the project continued with supervised learning.
+
++ Unsuccessful attempt at clustering using KMeans.
+
+#### Other Tests and Models
+Additional pipelines with Grid Search were created to explore alternative models and parameter adjustments. Despite these efforts, the Gradient Boosting Classifier remained the most effective model for beer style classification.
+
++ Exploration of alternative models.
++ Parameter adjustments for the Gradient Boosting Classifier.
+
+### Conclusion
+In conclusion, the Gradient Boosting Classifier, trained without scaling the data, proved to be the most effective model for beer style classification. The detailed analysis and model configurations can be found in the associated Jupyter notebooks.
+
+For a comprehensive view of the project and detailed metrics, refer to the respective Jupyter notebooks in the [notebooks directory](./notebooks/). The final model's parameters are available in [final_model_config.yaml](./models/final_model_config.yaml).
   
 ### Structure of the repository:
 
@@ -57,7 +98,9 @@ This repository hosts several machine learning models designed to classify beer 
 >>    ds.ppt: Data science technical presentation
 >>
 >>    memo.md: Project-related notes
-    
+
+For additional details, explore the project's source code, data processing scripts, and model training and evaluation notebooks. Feel free to refer to the [docs directory](./docs/) for business and data science presentations or to run the [**Streamlit app**](./app/main.py) if you want to check the performance of the model.
+
 #### Cheers to Data! 🍻
 
 (Some of the contents of this repository are in Spanish).
