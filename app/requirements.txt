@@ -13,6 +13,4 @@ PyYAML==6.0.1
 scikit-learn==1.3.2
 
 # Optional:
-os
-warnings
 ydata_profiling==4.6.1

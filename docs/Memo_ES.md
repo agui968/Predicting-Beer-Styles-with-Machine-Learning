@@ -79,6 +79,7 @@ Si bien le sigue costando un poco distinguir entre las cervezas rubias, es un mo
 #### Clustering y KMeans
 
 + También probé a hacer un modelo de aprendizaje no supervisado (*clustering*). Según indicaban las métricas, probé a dividir el dataset en 2 y en 5 clústeres, pero los resultados no fueron demasiado buenos.
++ Esto mismo sucedió al intentar hacer un Randomized Search en vez de un Grid Search controlado.
 ![img](../docs/charts/5clusters.png)
 
 #### Otras pruebas y modelos

@@ -140,7 +140,7 @@ elif select=='Discover a new beer':
         if st.button('Discover my new favorite \'hop juice\'!'):
             recommend_code = gb_model.predict([[abv_range, ibu_range, color_range]])
             st.subheader('Ready for a beer adventure?')
-            st.write(f'💡 Based on your preferences, you\'re in the mood for {classify(recommend_code)}. Why not indulge in the delightful taste of "{df["Name"].iloc[closest_beers]}", one of the finest {df["Style"].iloc[closest_beers]}? 🍻')
+            st.markdown(f'💡 Based on your preferences, you\'re in the mood for **{classify(recommend_code)}**. Why not indulge in the delightful taste of "**{df["Name"].iloc[closest_beers]}**", one of the finest {df["Style"].iloc[closest_beers]}? 🍻')
     user_preferences()
 
 
