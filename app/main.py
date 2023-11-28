@@ -27,7 +27,21 @@ import streamlit.components.v1 as c
 # with open(abdt_model_path, 'rb') as input:
 #     abdt_model = pickle.load(input)
 
-df=pd.read_csv('../data/processed/final_dataset.csv')
+# try:
+#     st.write('Trying with back slashes')
+#     st.dataframe(pd.read_csv(r'..\\data\\processed\\final_dataset.csv'))
+# except:
+#     st.write('It didn\'t work with back slashes.')
+
+
+# try:
+#     st.write('Trying with forward slashes')
+#     st.dataframe(pd.read_csv(r'../data/processed/final_dataset.csv'))
+# except:
+#     st.write('It didn\'t work with forward slashes.')
+
+
+df=pd.read_csv(r'../data/processed/final_dataset.csv')
 with open('../models/final_model_gbc.pkl', 'rb') as input:
     gb_model = pickle.load(input) 
 
