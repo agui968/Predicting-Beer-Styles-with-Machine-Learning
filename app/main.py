@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import euclidean_distances
 from PIL import Image
 import streamlit.components.v1 as c
-
+df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
 with open('../models/final_model_gbc.pkl', 'rb') as input:
     gb_model = pickle.load(input) 
 
@@ -15,8 +15,21 @@ with open('../models/trained_model_lr1.pkl', 'rb') as input:
 with open('../models/trained_model_adaboost_dtc.pkl', 'rb') as input:
     abdt_model = pickle.load(input)
 
-#load more models?
 df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
+def classify(pred):
+        """Function to classify beer styles according to their qualities"""
+        if pred==0:
+            return 'Wheat'
+        elif pred==1:
+            return "Pale Lager/Blonde Ale"
+        elif pred==2:
+            return "Pale Ale"
+        elif pred==3:
+            return "Strong Ale"
+        elif pred==4:
+            return "Brown Ale"
+        elif pred==5:
+            return "Stout/Porter"
 
 
 st.set_page_config(page_title='Predicting Beer Styles with Machine Learning 💻🍺',page_icon=':beer types:')
@@ -31,7 +44,7 @@ if select=='Home':
     
 elif select=='Try the model yourself':
     st.title('Make your own predictions 🍺')
-    df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
+    # df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
     img3=Image.open('resources\\bender.webp')
     st.image(img3)
     st.write('In this section you will introduce the parameters of your beer and let machine learning do the magic and predict its style.\nTo make it easier for you, below you can find some guidance on the usual values of each variable:')
@@ -48,26 +61,7 @@ elif select=='Try the model yourself':
     with col3:
         st.write(' ')
 
-    
-    def classify(pred):
-        """Function to classify beer styles according to their qualities"""
-        if pred==0:
-            return 'Wheat'
-        elif pred==1:
-            return "Pale Lager/Blonde Ale"
-        elif pred==2:
-            return "Pale Ale"
-        elif pred==3:
-            return "Strong Ale"
-        elif pred==4:
-            return "Brown Ale"
-        elif pred==5:
-            return "Stout/Porter"
-
-    def main():
-        # st
-        pass
-
+#classify() used to go here
     def user_input():
         """Function to collect the parameters chosen by the user in order to make predictions with the ML model"""
         abv=st.sidebar.slider('Alcohol by volume',0,50,5)
@@ -94,56 +88,63 @@ elif select=='Try the model yourself':
     st.write(df_user)
     
     st.write('CHEERS TO DATA!🍻')
+
 elif select=='Discover a new beer':
     img2=Image.open('resources\\white_perspective.jpg')
     st.image(img2)
     df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
+    st.header('Discover your new favorite \'hop juice\'!')
+    st.markdown('This one is easy: tell us what you like and we\'ll take care of the rest. Ready to dive into a whole new realm of vibrant and lively craft beers?\n\n In case you don\'t know where to start, you will find a quick guide to choose your preferences on the "**Try the model yourself**" section.')
     with st.expander('Framework'):
         df=pd.read_csv('resources\\clean_limited.csv',index_col=0).head()
     def user_preferences():
-        st.sidebar.radio('Select a level of alcohol',["Low (1º - 4º)","Medium (4º - 6.5º)","High (> 6º)","I want to forget my own name"])
-        if select=="Low (1º - 4º)":
+        global abv_range,ibu_range,color_range# ,choice,preferences,distance,closest_beers
+        abv_range,ibu_range,color_range= 55,20,6
+        abv_filter=st.sidebar.radio('Select a level of alcohol',["Low (1º - 4º)","Medium (4º - 6.5º)","High (> 6º)","I want to forget my own name"])
+        if abv_filter=="Low (1º - 4º)":
             abv_range=np.random.uniform(1.0,4.0)
-        elif select=="Medium (4º - 6.5º)":
+        elif abv_filter=="Medium (4º - 6.5º)":
             abv_range=np.random.uniform(4.0,6.5)
-        elif select=="High (> 6º)":
+        elif abv_filter=="High (> 6º)":
             abv_range=np.random.uniform(6.5,15.0)
-        elif select=="I want to forget my own name":
+        elif abv_filter=="I want to forget my own name":
             abv_range=np.random.uniform(15.0,53.0)
     
-        st.sidebar.selectbox('How bitter do you like your beer?',['Mild','Slightly bitter','Quite bitter','As bitter as a rainy Monday'])
-        if select=="Mild":    
+        ibu_filter=st.sidebar.radio('How bitter do you like your beer?',['Mild','Slightly bitter','Quite bitter','As bitter as a rainy Monday'])
+        if ibu_filter=="Mild":    
             ibu_range=np.random.randint(0,21)
-        elif select=="Slightly bitter":
+        elif ibu_filter=="Slightly bitter":
             ibu_range=np.random.randint(21,31)
-        elif select=="Quite bitter":
+        elif ibu_filter=="Quite bitter":
             ibu_range=np.random.randint(31,61)
         else:
             ibu_range=np.random.randint(61,246)
 
-        st.sidebar.selectbox('Choose the color of your beer',['Very Pale','Blonde','Amber','Brown','Dark'])
-        if select=="Very Pale": #wheat 
+        color_filter=st.sidebar.radio('Choose the color of your beer',['Very Pale','Blonde','Amber','Brown','Dark'])
+        if color_filter=="Very Pale": #wheat 
             color_range=np.random.randint(0,7)
-        elif select=="Blonde": #Pale Ale
+        elif color_filter=="Blonde": #Pale Ale
             color_range=np.random.randint(7,15)
-        elif select=="Amber": #strong ale
+        elif color_filter=="Amber": #strong ale
             color_range=np.random.randint(12,23)
-        elif select=="Brown":
+        elif color_filter=="Brown":
             color_range=np.random.randint(23,35)
         else:
             color_range=np.random.randint(35,51)
         choice=[abv_range,ibu_range,color_range]
-        preferences= pd.DataFrame(columns=['ABV','IBU','Color'],data=choice,index=[0])
+        # preferences= pd.DataFrame(columns=['ABV','IBU','Color'],data=choice,index=[0])
 
-        distance= euclidean_distances(df[['ABV', 'IBU', 'Color']], choice) #checks distance to other beer values
+        distance= np.linalg.norm(df[['ABV', 'IBU', 'Color']].values - choice, axis=1)
+        #checks distance to other beer values in relation to the user choices
         closest_beers = distance.argsort(axis=0)[0] #sorts the distances to get the closest ones (5 closest values)
         
-        preferences, closest_beers,choice
+        # preferences, closest_beers,choice
     
         if st.button('Discover my new favorite \'hop juice\'!'):
             recommend_code = gb_model.predict([[abv_range, ibu_range, color_range]])
             print('If you like that kind of beer, you\'re into ', classify(recommend_code))
-            print(f'You should definitely try {df['Name'].iloc[closest_beers]}')
+            print(f'So you should definitely try {df["Name"].iloc[closest_beers]}')
+    user_preferences()
 
 
 #     user_taste=[[abv_preference, ibu_preference, color_preference]]
