@@ -3,12 +3,31 @@ import pickle
 import numpy as np
 import pandas as pd
 from PIL import Image
-import os
+# import os
 import streamlit.components.v1 as c
+# import os
+# from pathlib import Path 
+# # file_path = os.path.abspath('resources/clean_limited.csv')
+# # df = pd.read_csv(file_path, index_col=0)
 
-file_path = os.path.abspath('resources/clean_limited.csv')
-df = pd.read_csv(file_path, index_col=0)
+# csv_path = Path('resources') / 'clean_limited.csv'
+# gb_model_path = Path('models') / 'final_model_gbc.pkl'
+# lr_model_path = Path('models') / 'trained_model_lr1.pkl'
+# abdt_model_path = Path('models') / 'trained_model_adaboost_dtc.pkl'
 
+# # Load data and models
+# df = pd.read_csv(csv_path, index_col=0)
+
+# with open(gb_model_path, 'rb') as input:
+#     gb_model = pickle.load(input)
+
+# with open(lr_model_path, 'rb') as input:
+#     lr_model = pickle.load(input)
+
+# with open(abdt_model_path, 'rb') as input:
+#     abdt_model = pickle.load(input)
+
+df=pd.read_csv('../data/processed/final_dataset.csv')
 with open('../models/final_model_gbc.pkl', 'rb') as input:
     gb_model = pickle.load(input) 
 
@@ -18,7 +37,6 @@ with open('../models/trained_model_lr1.pkl', 'rb') as input:
 with open('../models/trained_model_adaboost_dtc.pkl', 'rb') as input:
     abdt_model = pickle.load(input)
 
-# df=pd.read_csv('resources\\clean_limited.csv',index_col=0)
 def classify(pred):
         """Function to classify beer styles according to their qualities"""
         if pred==0:
