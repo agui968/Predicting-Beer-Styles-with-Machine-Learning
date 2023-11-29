@@ -3,9 +3,8 @@ import pickle
 import numpy as np
 import pandas as pd
 from PIL import Image
-# import os
+import os
 import streamlit.components.v1 as c
-# import os
 # from pathlib import Path 
 # # file_path = os.path.abspath('resources/clean_limited.csv')
 # # df = pd.read_csv(file_path, index_col=0)
@@ -40,17 +39,31 @@ import streamlit.components.v1 as c
 # except:
 #     st.write('It didn\'t work with forward slashes.')
 
+#"""my format"""
+# df=pd.read_csv(r'./resources/clean_limited.csv')
+# with open('../models/final_model_gbc.pkl', 'rb') as input:
+#     gb_model = pickle.load(input) 
 
-df=pd.read_csv(r'./resources/clean_limited.csv')
-with open('../models/final_model_gbc.pkl', 'rb') as input:
+# with open('../models/trained_model_lr1.pkl', 'rb') as input:
+#     lr_model = pickle.load(input)
+
+# with open('../models/trained_model_adaboost_dtc.pkl', 'rb') as input:
+#     abdt_model = pickle.load(input)
+
+#"""Streamlit format"""
+dir_path = os.path.dirname(os.path.realpath(__file__))
+# df_test = pd.read_csv(os.path.join(dir_path, "..", "data", "test", "test.csv"))
+df = pd.read_csv(os.path.join(dir_path, "..", "data", "processed", "final_dataset.csv"))
+with open(os.path.join(dir_path, "..", "models", "final_model_gbc.pkl"), 'rb') as input:
     gb_model = pickle.load(input) 
 
-with open('../models/trained_model_lr1.pkl', 'rb') as input:
+with open(os.path.join(dir_path, "..", "models", "trained_model_lr1.pkl"), 'rb') as input:
     lr_model = pickle.load(input)
 
-with open('../models/trained_model_adaboost_dtc.pkl', 'rb') as input:
+with open(os.path.join(dir_path, "..", "models", "trained_model_adaboost_dtc.pkl"), 'rb') as input:
     abdt_model = pickle.load(input)
 
+#"""Interface"""
 def classify(pred):
         """Function to classify beer styles according to their qualities"""
         if pred==0:
@@ -67,7 +80,7 @@ def classify(pred):
             return "Stout/Porter"
 
 
-st.set_page_config(page_title='Predicting Beer Styles with Machine Learning 💻🍺',page_icon=':beer types:')
+# st.set_page_config(page_title='Predicting Beer Styles with Machine Learning 💻🍺',page_icon='🍺')
 
 select=st.sidebar.selectbox('Select menu',['Home','Try the model yourself','Discover a new beer'])
 if select=='Home':
