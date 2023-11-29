@@ -106,7 +106,8 @@ elif select=='Try the model yourself':
         st.write(' ')
     with col2:
         st.write('Color SRM scale:')
-        st.image(Image.open(os.path.join(dir_path, "resources", "SRM_colorscale.webp"),width=450))
+        srm_guide=os.path.join(dir_path, "resources", "SRM_colorscale.webp")
+        st.image(Image.open(srm_guide),width=450)
     with col3:
         st.write(' ')
     
