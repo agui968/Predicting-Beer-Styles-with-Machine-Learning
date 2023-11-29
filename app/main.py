@@ -85,7 +85,7 @@ def classify(pred):
 select=st.sidebar.selectbox('Select menu',['Home','Try the model yourself','Discover a new beer'])
 if select=='Home':
     st.title('Predicting Beer Styles with Machine Learning')
-    img=Image.open('resources\\aibeer.jpg')
+    img=Image.open(os.path.join(dir_path, "resources", "aibeer.jpg"))
     st.image(img)
     st.header('Introduction')
     st.markdown('Tired of making *pour* beer choices? Now you will be able to know the style of a beer based on its main qualities: ABV (alcohol by volume), IBU (international bitterness units) and SRM color (standard reference method). \n\n - If you want to discover your new favorite \'hop juice\', head on to the "**Discover a new beer**" section.\n\n - If you prefer to make your own machine learning predictions, open the "**Try the model yourself**" section, where you will also find a quick guide to choose your parameters.')
@@ -93,7 +93,7 @@ if select=='Home':
 elif select=='Try the model yourself':
     st.title('Make your own predictions 🍺')
     
-    img3=Image.open('resources\\bender.webp')
+    img3=Image.open(os.path.join(dir_path, "resources", "bender.webp"))
     st.image(img3)
     st.write('In this section you will introduce the parameters of your beer and let machine learning do the magic and predict its style.\nTo make it easier for you, below you can find some guidance on the usual values of each variable:')
     with st.expander('Take a sneak peek at the beer data 🔍'):
@@ -139,7 +139,7 @@ elif select=='Try the model yourself':
     st.write('CHEERS TO DATA!🍻')
 
 elif select=='Discover a new beer':
-    img2=Image.open('resources\\bar_taps.jpg')
+    img2=Image.open(os.path.join(dir_path, "resources", "bar_taps.jpg"))
     st.image(img2,use_column_width='always')
     st.header('Discover your new favorite \'hop juice\'!')
     st.markdown('This one is easy: tell us what you like and we\'ll take care of the rest. Ready to dive into a whole new realm of vibrant and lively craft beers?\n\n In case you don\'t know where to start, you will find a quick guide to choose your preferences on the "**Try the model yourself**" section.')
