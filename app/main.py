@@ -53,6 +53,7 @@ elif select=='Try the model yourself':
     st.write('In this section you will introduce the parameters of your beer and let machine learning do the magic and predict its style.\nTo make it easier for you, below you can find some guidance on the usual values of each variable:')
     with st.expander('Take a sneak peek at the beer data 🔍'):
         st.write(df.tail())
+    st.subheader('Guidelines:')
     st.markdown("- ***Alcohol by volume***:\n\n\tUsually, pale ale and stout styles have higher alcohol content, but there's no general rule for this parameter. Go nuts!")
     st.markdown("- ***International bitterness units***:\n\n\t - Mild - up to 20 IBU;\n\n\t - Slightly bitter - 20 to 30 IBU;\n\n\t - Quite bitter - 30 to 60 IBU;\n\n\t - As bitter as a rainy Monday - higher than 60 IBU.")
     st.markdown("- ***Color (SRM) scale***: \n\n\t - Blonde - 1 to 15 SRM;\n\n\t - Amber - 12 to 22 SRM;\n\n\t - Brown - 23 to 35 SRM;\n\n\t - After that... sky is the limit (actually, 50 SRM is the limit).\n\n\tFind the color of your favorite beer in the image below:")
@@ -91,12 +92,12 @@ elif select=='Try the model yourself':
             st.success(classify(abdt_model.predict(df_user)))
     st.write(df_user)
     
-    st.write('CHEERS TO DATA!🍻')
+    st.subheader('CHEERS TO DATA!🍻')
 
 elif select=='Discover a new beer':
     img2=Image.open(os.path.join(dir_path, "resources", "bar_taps.jpg"))
     st.image(img2,use_column_width='always')
-    st.header('Discover your new favorite \'hop juice\'!')
+    st.header('Discover your new favorite \'hop juice\'!🍻')
     st.markdown('This one is easy: tell us what you like and we\'ll take care of the rest. Ready to dive into a whole new realm of vibrant and lively craft beers?\n\n In case you don\'t know where to start, you will find a quick guide to choose your preferences on the "**Try the model yourself**" section.')
     def user_preferences():
         global abv_range,ibu_range,color_range# ,choice,preferences,distance,closest_beers
@@ -145,6 +146,7 @@ elif select=='Discover a new beer':
             recommend_code = gb_model.predict([[abv_range, ibu_range, color_range]])
             st.subheader('Ready for a beer adventure?')
             st.markdown(f'💡 Based on your preferences, you\'re in the mood for **{classify(recommend_code)}**. Indulge in the delightful taste of "**{df["Name"].iloc[closest_beers]}**", one of the finest {df["Style"].iloc[closest_beers]}! 🍻')
+            st.subheader('Hope you like it!🍻')
     user_preferences()
 
 
