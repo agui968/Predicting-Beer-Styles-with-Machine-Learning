@@ -2,6 +2,7 @@
 ![img](./docs/aibeer.jpg)
 
 ### Project Overview
+#### (Skip the boring part and try the model yourself [***here***](https://predicting-beer-styles-with-machine-learning.streamlit.app/))
 
 This project focuses on classifying beer styles using machine learning techniques. The dataset, obtained from [Brewersfriend.com](https://www.brewersfriend.com), includes various features related to beer recipes. The goal is to build a model that can accurately predict the style of beer based on key attributes such as Alcohol By Volume (ABV), International Bitterness Units (IBU), and Color (SRM), assisting brewers and enthusiasts alike in understanding and categorizing different brews.
 
@@ -63,11 +64,11 @@ For a comprehensive view of the project and detailed metrics, refer to the respe
 >
 > notebooks: Includes Jupyter notebooks used for different stages of the project.
 >
->>    01_Fuentes.ipynb: Sources for the data
+>>    01_Sources.ipynb: Sources for the data
 >>
->>   02_LimpiezaEDA.ipynb: Data cleaning and exploratory data analysis
+>>   (02-03)_cleaningEDA.ipynb: Data cleaning and exploratory data analysis
 >>
->>   03-06_Entrenamiento_Evaluacion.ipynb: Model training and evaluation
+>>   (04-06)_Training_evaluation_(model).ipynb: Model training and evaluation
 >
 > src: This directory holds the source code files.
 >
