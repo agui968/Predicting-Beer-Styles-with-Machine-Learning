@@ -93,3 +93,5 @@ Si bien le sigue costando un poco distinguir entre las cervezas rubias, es un mo
         ![img](../docs/charts/lastgbc_cm.png)
 
 En definitiva, el mejor modelo fue el Gradient Boosting inicial, sin escalar los datos. Se pueden consultar los parámetros utilizados [aquí](../models/final_model_config.yaml).
+## Prueba el modelo tú mismo
+En [este enlace](https://predicting-beer-styles-with-machine-learning.streamlit.app/) puedes probar el modelo desplegado en Streamlit.

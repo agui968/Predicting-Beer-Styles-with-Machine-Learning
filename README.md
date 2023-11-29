@@ -99,7 +99,8 @@ For a comprehensive view of the project and detailed metrics, refer to the respe
 >>
 >>    memo.md: Project-related notes
 
-For additional details, explore the project's source code, data processing scripts, and model training and evaluation notebooks. Feel free to refer to the [docs directory](./docs/) for business and data science presentations or to run the [**Streamlit app**](./app/main.py) if you want to check the performance of the model.
+For additional details, explore the project's source code, data processing scripts, and model training and evaluation notebooks. Feel free to refer to the [docs directory](./docs/) for business and data science presentations.
+If you want to test the performance of the model and make your own predictions, follow this link to the [**Streamlit app**](https://predicting-beer-styles-with-machine-learning.streamlit.app/).
 
 #### Cheers to Data! 🍻
 

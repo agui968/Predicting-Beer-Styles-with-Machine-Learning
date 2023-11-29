@@ -89,3 +89,6 @@ Although it still struggles a bit to distinguish between blonde beers, it is a v
     ![img](../docs/charts/lastgbc_cm.png)
 
 In conclusion, the best model was the initial Gradient Boosting, without scaling the data. The parameters used can be consulted [here](../models/final_model_config.yaml).
+
+## Prueba el modelo tú mismo
+Follow [this link](https://predicting-beer-styles-with-machine-learning.streamlit.app/) if you want to test the model on Streamlit.
