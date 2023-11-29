@@ -1,8 +1,8 @@
 ## Welcome to the Beer Style Prediction Project! 🍻
-![img](./docs/aibeer.jpg)
+![img](./docs/charts/aibeer.jpg)
 
 ### Project Overview
-#### (Skip the boring part and try the model yourself [***here***](https://predicting-beer-styles-with-machine-learning.streamlit.app/))
+## (Skip the boring part and try the model yourself [***here***](https://predicting-beer-styles-with-machine-learning.streamlit.app/) (Streamlit app))
 
 This project focuses on classifying beer styles using machine learning techniques. The dataset, obtained from [Brewersfriend.com](https://www.brewersfriend.com), includes various features related to beer recipes. The goal is to build a model that can accurately predict the style of beer based on key attributes such as Alcohol By Volume (ABV), International Bitterness Units (IBU), and Color (SRM), assisting brewers and enthusiasts alike in understanding and categorizing different brews.
 
@@ -46,9 +46,7 @@ Additional pipelines with Grid Search were created to explore alternative models
 + Parameter adjustments for the Gradient Boosting Classifier.
 
 ### Conclusion
-In conclusion, the Gradient Boosting Classifier, trained without scaling the data, proved to be the most effective model for beer style classification. The detailed analysis and model configurations can be found in the associated Jupyter notebooks.
-
-For a comprehensive view of the project and detailed metrics, refer to the respective Jupyter notebooks in the [notebooks directory](./notebooks/). The final model's parameters are available in [final_model_config.yaml](./models/final_model_config.yaml).
+In conclusion, the Gradient Boosting Classifier, trained without scaling the data, proved to be the most effective model for beer style classification. The detailed analysis and model configurations can be found in the associated Jupyter notebooks. You can also refer to the [notebooks directory](./notebooks/) for a comprehensive view of the project and detailed metrics. The final model parameters are available in [final_model_config.yaml](./models/final_model_config.yaml).
   
 ### Structure of the repository:
 

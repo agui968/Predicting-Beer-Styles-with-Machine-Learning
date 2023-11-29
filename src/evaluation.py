@@ -8,7 +8,7 @@ from sklearn.metrics import (precision_score,recall_score,
                              f1_score, accuracy_score,confusion_matrix)
 
 # #IMPORT THE TRAINED MODEL
-with open('..\\models\\best_trained_model_gbc.pkl', 'rb') as input:
+with open('..\\models\\final_model_gbc.pkl', 'rb') as input:
     model = pickle.load(input) 
 #importing test    
 test=pd.read_csv('..\\data\\test\\test.csv',index_col=0)

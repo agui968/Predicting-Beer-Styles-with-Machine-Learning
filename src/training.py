@@ -34,7 +34,7 @@ sleep(0.75)
 print('\n')
 print('Importing the model...')
 #IMPORT THE TRAINED MODEL
-with open('..\\models\\best_trained_model_gbc.pkl', 'rb') as input:
+with open('..\\models\\final_model_gbc.pkl', 'rb') as input:
     model = pickle.load(input) 
 sleep(0.75)
 print('\n')
@@ -44,7 +44,7 @@ model.fit(X_resampled, y_resampled)
 print('\n')
 print('Exporting the model...')
 #EXPORT THE MODEL
-with open('..\\models\\best_trained_model_gbc.pkl', 'wb') as output:
+with open('..\\models\\final_model_gbc.pkl', 'wb') as output:
     pickle.dump(model, output)
 sleep(0.8)
 print('\n')

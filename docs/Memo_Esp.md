@@ -1,18 +1,16 @@
-# Project Memo
+# Memoria del proyecto
 ![img](../docs/charts/types-pic.avif)
 Inicialmente se disponía de un dataset con las siguientes columnas:
 ```Python
-['BeerID', 'Name', 'URL', 'Style', 'StyleID', 'Size(L)', 'OG', 'FG',
-       'ABV', 'IBU', 'Color', 'BoilSize', 'BoilTime', 'BoilGravity',
-       'Efficiency', 'MashThickness', 'SugarScale', 'BrewMethod', 'PitchRate',
-       'PrimaryTemp', 'PrimingMethod', 'PrimingAmount', 'UserId']
+['BeerID', 'Name', 'URL', 'Style', 'StyleID', 'Size(L)', 'OG', 'FG', 'ABV', 'IBU', 'Color', 'BoilSize', 'BoilTime', 'BoilGravity', 'Efficiency', 'MashThickness', 'SugarScale', 'BrewMethod', 'PitchRate', 'PrimaryTemp', 'PrimingMethod', 'PrimingAmount', 'UserId']
 ```
 
 La procedencia de los datos, [Brewersfriend.com](https://www.brewersfriend.com/beer-charts/), es una web orientada a las recetas de cervezas artesanales para que los aficionados las fabriquen y publiquen.
 
 ### Limpieza de datos
 
-(Detalles sobre este procedimiento en el archivo [02limpieza.ipynb]('../notebooks/02limpieza.ipynb'))
+(Detalles sobre este procedimiento en el archivo [02cleaning.ipynb]('../notebooks/02limpieza.ipynb')).
+
 Tras ver las correlaciones de los datos en un mapa de calor, tanto con los coeficientes de **Pearson, como de Kendall y Spearman**, descarté las columnas claramente innecesarias.
 
 También probé métodos como el **OneHot Encoder** o el **Label Encoder** para otras columans con ánimo de lograr alguna relación menos obvia, pero no sirvió de mucho.
@@ -43,36 +41,38 @@ Una vez determinadas las variables con las que trabajar, se pasa a la limpieza d
 
 + Eliminación de cervezas duplicadas;
 + Visualización de la distribución de las variables por estilos (``` groupby() ```)
-![img](../docs/charts/ejemplo_color_nolim.png)
+![img](../docs/charts/1ejemplo_color_nolim.png)
 -----------------------------------
 
 ### Transformación de variables y visualizaciones
 
 + Eliminación de valores atípicos y corrección de valores erróneos (eliminación de cervezas 0,0%, establecimiento de límites para el valor de la variable Color según la escala SRM...)
 
-(Detalles sobre este procedimiento en el archivo [03limpiezaEDA.ipynb]('../notebooks/03limpiezaEDA.ipynb'))
+(Detalles sobre este procedimiento en el archivo [03cleaning_EDA.ipynb]('../notebooks/03limpiezaEDA.ipynb'))
 
 + Una vez corregidos los valores atípicos, se puede visualizar con más claridad la distribución de los valores:
-![img](../docs/charts/boxplot_srm_lim.png)
+![img](../docs/charts/2boxplot_srm_lim.png)
 
 ### Entrenamiento de modelos
 
 #### Regresión logística
 
-(Detalles sobre este procedimiento en el archivo [04Entrenamiento_evaluacion_LRpruebas.ipynb]('../notebooks/04Entrenamiento_evaluacion_LRpruebas.ipynb'))
+(Detalles sobre este procedimiento en el archivo [04Training_evaluation_LR.ipynb]('../notebooks/04Entrenamiento_evaluacion_LRpruebas.ipynb'))
+
 + Tras dividir el dataset en train y test, definir las variables predictoras (```X_train=train[['ABV','IBU','Color']]```) y la variable que predecir (```y_train=train['Style_color']```), es importante equilibrar las clases, dado que hay muchas más cervezas de unos tipos que de otros. Para ello, se utiliza un **RandomUnderSampler**.
 
-+ Después, realicé una primera prueba con una regresión logística sencilla (tanto escalando los datos como sin escalarlos), que me dio unas métricas aceptables (```f1_score 0.8151642512466675``` sin escalar).
++ Después, realicé una primera prueba con una regresión logística sencilla (tanto escalando los datos como sin escalarlos), que me dio unas métricas aceptables (```f1_score 0.815``` sin escalar).
 ![img](../docs/charts/lr1_confusionmatrix.png)
 
 + Repetí este proceso utilizando como target la columna que ordenaba los estilos por su grado de amargor (IBU), pero los resultados fueron muy similares, por lo que de aquí en adelante se utilizó siempre la de **Style_color**.
 
 #### GridSearches, Pipelines y modelo definitivo
 
-(Detalles sobre este procedimiento en el archivo [05Entrenamiento_evaluacion_best_model.ipynb]('../notebooks/05Entrenamiento_evaluacion_best_model.ipynb'))
+(Detalles sobre este procedimiento en el archivo [05Training_evaluation_best_model.ipynb]('../notebooks/05Entrenamiento_evaluacion_best_model.ipynb'))
+
 + En este penúltimo *notebook* probé con dos pipelines para determinar el mejor modelo de clasificación y sus respectivos parámetros mediante un Grid Search. Primero, escalando los datos y, después, sin escalarlos, que resultó ser la mejor opción.
 
-De los modelos elegidos, el ganador resultó ser el Gradient Boosting Classifier, con unas métricas bastante buenas (```f_1 score 0.91```)
+De los modelos elegidos, el ganador resultó ser el Gradient Boosting Classifier, con unas métricas bastante buenas (```f1_score 0.91```)
 ![img](../docs/charts/final_cm.png)
 Si bien le sigue costando un poco distinguir entre las cervezas rubias, es un modelo bastante bueno para todos los demás estilos de cerveza.
 
@@ -83,7 +83,7 @@ Si bien le sigue costando un poco distinguir entre las cervezas rubias, es un mo
 ![img](../docs/charts/5clusters.png)
 
 #### Otras pruebas y modelos
-(Detalles sobre este procedimiento en el archivo [06Entrenamiento_evaluacion_GS2pruebas.ipynb]('../notebooks/06Entrenamiento_evaluacion_GS2pruebas.ipynb'))
+(Detalles sobre este procedimiento en el archivo [06Training_evaluation_GS2.ipynb]('../notebooks/06Entrenamiento_evaluacion_GS2pruebas.ipynb'))
 
 + Por último, decidí hacer otros dos pipelines con Grid Search:
     - Uno con los modelos que quedaban por probar (no mejoró los resultados)
@@ -92,6 +92,6 @@ Si bien le sigue costando un poco distinguir entre las cervezas rubias, es un mo
     - Otro aumentando los parámetros del Gradient Boosting ganador, que tampoco mejoró las métricas
         ![img](../docs/charts/lastgbc_cm.png)
 
-En definitiva, el mejor modelo fue el Gradient Boosting inicial, sin escalar los datos. Se pueden consultar los parámetros utilizados [aquí](../models/final_model_config.yaml).
-## Prueba el modelo tú mismo
+En definitiva, el mejor modelo fue el Gradient Boosting inicial, sin escalar los datos, probablemente porque los posteriores estaban sobreajustados. Se pueden consultar los parámetros utilizados [aquí](../models/final_model_config.yaml).
+## App de Streamlit: Prueba el modelo tú mismo
 En [este enlace](https://predicting-beer-styles-with-machine-learning.streamlit.app/) puedes probar el modelo desplegado en Streamlit.

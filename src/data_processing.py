@@ -78,7 +78,7 @@ beer1['Style_color'] = beer1['Simple_style'].map(style_map_color)
 sleep(0.75)
 print('\n')
 
-#Process detailed in 03limpieza_EDA.ipynb
+#Process detailed in 03cleaning_EDA.ipynb
 beer=beer1
 
 print('Removing duplicates and correcting outliers / wrong values...')
