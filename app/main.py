@@ -5,50 +5,8 @@ import pandas as pd
 from PIL import Image
 import os
 import streamlit.components.v1 as c
-# from pathlib import Path 
-# # file_path = os.path.abspath('resources/clean_limited.csv')
-# # df = pd.read_csv(file_path, index_col=0)
 
-# csv_path = Path('resources') / 'clean_limited.csv'
-# gb_model_path = Path('models') / 'final_model_gbc.pkl'
-# lr_model_path = Path('models') / 'trained_model_lr1.pkl'
-# abdt_model_path = Path('models') / 'trained_model_adaboost_dtc.pkl'
-
-# # Load data and models
-# df = pd.read_csv(csv_path, index_col=0)
-
-# with open(gb_model_path, 'rb') as input:
-#     gb_model = pickle.load(input)
-
-# with open(lr_model_path, 'rb') as input:
-#     lr_model = pickle.load(input)
-
-# with open(abdt_model_path, 'rb') as input:
-#     abdt_model = pickle.load(input)
-
-# try:
-#     st.write('Trying with back slashes')
-#     st.dataframe(pd.read_csv(r'..\\data\\processed\\final_dataset.csv'))
-# except:
-#     st.write('It didn\'t work with back slashes.')
-
-
-# try:
-#     st.write('Trying with forward slashes')
-#     st.dataframe(pd.read_csv(r'../data/processed/final_dataset.csv'))
-# except:
-#     st.write('It didn\'t work with forward slashes.')
-
-#"""my format"""
-# df=pd.read_csv(r'./resources/clean_limited.csv')
-# with open('../models/final_model_gbc.pkl', 'rb') as input:
-#     gb_model = pickle.load(input) 
-
-# with open('../models/trained_model_lr1.pkl', 'rb') as input:
-#     lr_model = pickle.load(input)
-
-# with open('../models/trained_model_adaboost_dtc.pkl', 'rb') as input:
-#     abdt_model = pickle.load(input)
+st.set_page_config(page_title='Predicting Beer Styles with Machine Learning 💻🍺',page_icon='🍺')
 
 #"""Streamlit format"""
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -78,9 +36,6 @@ def classify(pred):
             return "Brown Ale"
         elif pred==5:
             return "Stout/Porter"
-
-
-# st.set_page_config(page_title='Predicting Beer Styles with Machine Learning 💻🍺',page_icon='🍺')
 
 select=st.sidebar.selectbox('Select menu',['Home','Try the model yourself','Discover a new beer'])
 if select=='Home':
