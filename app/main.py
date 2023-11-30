@@ -42,7 +42,7 @@ if select=='Home':
     st.title('Predicting Beer Styles with Machine Learning')
     img=Image.open(os.path.join(dir_path, "resources", "aibeer.jpg"))
     st.image(img)
-    st.header('Introduction')
+    st.header('Welcome!')
     st.markdown('Tired of making *pour* beer choices? Now you will be able to know the style of a beer based on its main qualities: ABV (alcohol by volume), IBU (international bitterness units) and SRM color (standard reference method). \n\n - If you want to discover your new favorite \'hop juice\', head on to the "**Discover a new beer**" section.\n\n - If you prefer to make your own machine learning predictions, open the "**Try the model yourself**" section, where you will also find a quick guide to choose your parameters.')
     
 elif select=='Try the model yourself':
@@ -98,7 +98,7 @@ elif select=='Discover a new beer':
     img2=Image.open(os.path.join(dir_path, "resources", "bar_taps.jpg"))
     st.image(img2,use_column_width='always')
     st.header('Discover your new favorite \'hop juice\'!🍻')
-    st.markdown('This one is easy: tell us what you like and we\'ll take care of the rest. Ready to dive into a whole new realm of vibrant and lively craft beers?\n\n In case you don\'t know where to start, you will find a quick guide to choose your preferences on the "**Try the model yourself**" section.')
+    st.markdown('This one is easy: tell us what you like and we\'ll do the magic. Ready to dive into a whole new realm of vibrant and lively craft beers?\n\n In case you don\'t know where to start, you will find a quick guide to choose your preferences on the "**Try the model yourself**" section.')
     def user_preferences():
         global abv_range,ibu_range,color_range# ,choice,preferences,distance,closest_beers
         abv_range,ibu_range,color_range= 55,20,6
