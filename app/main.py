@@ -100,7 +100,7 @@ elif select=='Discover a new beer':
     st.header('Discover your new favorite \'hop juice\'!🍻')
     st.markdown('This one is easy: tell us what you like and we\'ll do the magic. Ready to dive into a whole new realm of vibrant and lively craft beers?\n\n In case you don\'t know where to start, you will find a quick guide to choose your preferences on the "**Try the model yourself**" section.')
     def user_preferences():
-        global abv_range,ibu_range,color_range# ,choice,preferences,distance,closest_beers
+        global abv_range,ibu_range,color_range # ,choice,preferences,distance,closest_beers
         abv_range,ibu_range,color_range= 55,20,6
         abv_filter=st.sidebar.radio('Select a level of alcohol',["Low (1º - 4º)","Medium (4º - 6.5º)","High (> 6º)","I want to forget my own name"])
         if abv_filter=="Low (1º - 4º)":
